@@ -1,0 +1,5 @@
+<app-choice 
+  *ngFor="let gameOption of gameOptions" 
+  [gameOption]="gameOption" 
+  (playerChoice)="onSetSelection(gameOption)">
+</app-choice>
