@@ -1,5 +1,6 @@
-import { Component, OnChanges, SimpleChanges } from '@angular/core';
+import { Component } from '@angular/core';
 import { GameChoice } from '../shared/game-choice.model';
+import { GameOption } from '../enum/game-options.enum';
 
 @Component({
   selector: 'app-game',
@@ -8,36 +9,36 @@ import { GameChoice } from '../shared/game-choice.model';
 })
 export class GameComponent {
   gameOptions: GameChoice[] = [
-    { name: "rock", imageUrl: "", winsAgainst: ["scissors", "lizard"], losesTo: ["paper", "spock"] },
-    { name: "paper", imageUrl: "", winsAgainst: ["rock", "spock"], losesTo: ["scissors", "lizard"] },
-    { name: "scissors", imageUrl: "", winsAgainst: ["paper", "lizard"], losesTo: ["rock", "spock"] },
-    { name: "lizard", imageUrl: "", winsAgainst: ["paper", "spock"], losesTo: ["scissors", "rock"] },
-    { name: "spock", imageUrl: "", winsAgainst: ["scissors", "rock"], losesTo: ["lizard", "paper"] }
+    { name: GameOption.ROCK, imageUrl: "", winsAgainst: [GameOption.SCISSORS, GameOption.LIZARD], losesTo: [GameOption.PAPER, GameOption.SPOCK] },
+    { name: GameOption.PAPER, imageUrl: "", winsAgainst: [GameOption.ROCK, GameOption.SPOCK], losesTo: [GameOption.SCISSORS, GameOption.LIZARD] },
+    { name: GameOption.SCISSORS, imageUrl: "", winsAgainst: [GameOption.PAPER, GameOption.LIZARD], losesTo: [GameOption.ROCK, GameOption.SPOCK] },
+    { name: GameOption.LIZARD, imageUrl: "", winsAgainst: [GameOption.PAPER, GameOption.SPOCK], losesTo: [GameOption.SCISSORS, GameOption.ROCK] },
+    { name: GameOption.SPOCK, imageUrl: "", winsAgainst: [GameOption.SCISSORS, GameOption.ROCK], losesTo: [GameOption.LIZARD, GameOption.PAPER] }
   ];
 
-  verbChart: { [key: string]: { [key: string]: string }} = {
-     "rock": {
-      "scissors": "smashes",
-      "lizard": "crushes",
-     },
-     "paper": {
-      "rock": "covers",
-      "spock": "disproves",
-     },
-     "scissors": {
-      "paper": "cut",
-      "lizard": "decapitate",
-     },
-     "lizard": {
-      "paper": "eats",
-      "spock": "poisons",
-     },
-     "spock": {
-      "rock": "vaporizes",
-      "scissors": "smashes",
-     },
+  verbLookup: { [key: string]: { [key: string]: string } } = {
+    [GameOption.ROCK]: {
+      [GameOption.SCISSORS]: "smashes",
+      [GameOption.LIZARD]: "crushes",
+    },
+    [GameOption.PAPER]: {
+      [GameOption.ROCK]: "covers",
+      [GameOption.SPOCK]: "disproves",
+    },
+    [GameOption.SCISSORS]: {
+      [GameOption.PAPER]: "cut",
+      [GameOption.LIZARD]: "decapitate",
+    },
+    [GameOption.LIZARD]: {
+      [GameOption.PAPER]: "eats",
+      [GameOption.SPOCK]: "poisons",
+    },
+    [GameOption.SPOCK]: {
+      [GameOption.ROCK]: "vaporizes",
+      [GameOption.SCISSORS]: "smashes",
+    }
   }
-  
+
   playerChoice!: GameChoice;
   opponentChoice!: GameChoice;
   winner: string | null = null;
@@ -58,7 +59,7 @@ export class GameComponent {
   }
 
   getOpponentChoice() {
-    this.opponentChoice = this.gameOptions[Math.floor(Math.random() * 5)];
+    this.opponentChoice = this.gameOptions[Math.floor(Math.random() * this.gameOptions.length)];
   }
 
   getResult() {
@@ -76,12 +77,16 @@ export class GameComponent {
   }
 
   getOutputExpression() {
-    this.outputExpression = this.gameResult === "WIN" ? "You win! " : 
-                            this.gameResult === "LOSE" ? "You lose! " : "Draw! ";
+    this.outputExpression = this.gameResult === "WIN" ? "You win! " :
+      this.gameResult === "LOSE" ? "You lose! " : "Draw! ";
     if (this.winner !== null && this.loser !== null) {
-      this.verb = this.verbChart[this.winner][this.loser];
-      this.outputExpression += this.winner + " " + this.verb + " " + this.loser + "!";
+      this.verb = this.verbLookup[this.winner][this.loser];
+      this.outputExpression += this.capitalize(this.winner) + " " + this.verb + " " + this.loser + "!";
     }
+  }
+
+  capitalize(word: string) {
+    return word.charAt(0).toUpperCase() + word.slice(1);
   }
 
 }
