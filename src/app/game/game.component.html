@@ -1,5 +1,7 @@
-<app-choice 
-  *ngFor="let gameOption of gameOptions" 
-  [gameOption]="gameOption" 
-  (playerChoice)="onSetSelection(gameOption)">
-</app-choice>
+<div class="d-flex align-items-center justify-content-center">
+  <app-choice 
+    *ngFor="let gameOption of gameOptions" 
+    [gameOption]="gameOption" 
+    (playerChoice)="onSetSelection(gameOption)">
+  </app-choice>
+</div>
