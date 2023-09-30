@@ -1,7 +1,7 @@
 export enum GameOption {
-  ROCK = 'rock', 
-  PAPER = 'paper',
-  SCISSORS = 'scissors',
-  LIZARD = 'lizard',
+  ROCK = 'Rock', 
+  PAPER = 'Paper',
+  SCISSORS = 'Scissors',
+  LIZARD = 'Lizard',
   SPOCK = 'Spock'
 }

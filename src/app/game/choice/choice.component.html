@@ -5,5 +5,9 @@
     gameOption === opponentSelected && gameResult !== GameResult.DRAW ? '#fb7f2b' : 
     gameOption === playerSelected && gameResult !== GameResult.DRAW ? '#2696a5' : null
   "
-  class="btn btn-primary me-3">{{gameOption.name}}
+  class="btn btn-primary me-3 d-flex flex-column gap-2 align-items-center justify-content-center">
+    <fa-icon 
+      class="display-6 mt-3 mx-3"
+      [icon]="gameOption.icon">
+    </fa-icon>{{gameOption.name}}
 </button>

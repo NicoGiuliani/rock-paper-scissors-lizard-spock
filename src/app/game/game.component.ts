@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { GameChoice } from '../shared/game-choice.model';
 import { GameOption } from '../enum/game-options.enum';
 import { GameResult } from '../enum/game-result.enum';
+import { faHandBackFist, faHand, faHandScissors, faHandLizard, faHandSpock } from '@fortawesome/free-regular-svg-icons';
 
 @Component({
   selector: 'app-game',
@@ -10,11 +11,11 @@ import { GameResult } from '../enum/game-result.enum';
 })
 export class GameComponent {
   gameOptions: GameChoice[] = [
-    { name: GameOption.ROCK, imageUrl: "", winsAgainst: [GameOption.SCISSORS, GameOption.LIZARD], losesTo: [GameOption.PAPER, GameOption.SPOCK] },
-    { name: GameOption.PAPER, imageUrl: "", winsAgainst: [GameOption.ROCK, GameOption.SPOCK], losesTo: [GameOption.SCISSORS, GameOption.LIZARD] },
-    { name: GameOption.SCISSORS, imageUrl: "", winsAgainst: [GameOption.PAPER, GameOption.LIZARD], losesTo: [GameOption.ROCK, GameOption.SPOCK] },
-    { name: GameOption.LIZARD, imageUrl: "", winsAgainst: [GameOption.PAPER, GameOption.SPOCK], losesTo: [GameOption.SCISSORS, GameOption.ROCK] },
-    { name: GameOption.SPOCK, imageUrl: "", winsAgainst: [GameOption.SCISSORS, GameOption.ROCK], losesTo: [GameOption.LIZARD, GameOption.PAPER] }
+    { name: GameOption.ROCK, imageUrl: "", winsAgainst: [GameOption.SCISSORS, GameOption.LIZARD], losesTo: [GameOption.PAPER, GameOption.SPOCK], icon: faHand },
+    { name: GameOption.PAPER, imageUrl: "", winsAgainst: [GameOption.ROCK, GameOption.SPOCK], losesTo: [GameOption.SCISSORS, GameOption.LIZARD], icon: faHandBackFist },
+    { name: GameOption.SCISSORS, imageUrl: "", winsAgainst: [GameOption.PAPER, GameOption.LIZARD], losesTo: [GameOption.ROCK, GameOption.SPOCK], icon: faHandScissors },
+    { name: GameOption.LIZARD, imageUrl: "", winsAgainst: [GameOption.PAPER, GameOption.SPOCK], losesTo: [GameOption.SCISSORS, GameOption.ROCK], icon: faHandLizard },
+    { name: GameOption.SPOCK, imageUrl: "", winsAgainst: [GameOption.SCISSORS, GameOption.ROCK], losesTo: [GameOption.LIZARD, GameOption.PAPER], icon: faHandSpock }
   ];
 
   verbLookup: { [key: string]: { [key: string]: string } } = {
