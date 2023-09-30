@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { GameChoice } from '../shared/game-choice.model';
 import { GameOption } from '../enum/game-options.enum';
+import { GameResult } from '../enum/game-result.enum';
 
 @Component({
   selector: 'app-game',
@@ -43,19 +44,17 @@ export class GameComponent {
   opponentChoice!: GameChoice;
   winner: string | null = null;
   loser: string | null = null;
-  gameResult!: string;
+  gameResult!: GameResult;
   verb!: string;
   outputExpression!: string;
 
   onSetSelection(selection: GameChoice) {
+    this.winner = null;
+    this.loser = null;
     this.playerChoice = selection;
     this.getOpponentChoice();
     this.getResult();
     this.getOutputExpression();
-
-    console.log("You chose:", this.playerChoice.name);
-    console.log("Opponent chose:", this.opponentChoice.name);
-    console.log(this.outputExpression);
   }
 
   getOpponentChoice() {
@@ -66,19 +65,20 @@ export class GameComponent {
     if (this.playerChoice.winsAgainst.includes(this.opponentChoice.name)) {
       this.winner = this.playerChoice.name;
       this.loser = this.opponentChoice.name;
-      this.gameResult = "WIN";
+      this.gameResult = GameResult.WIN;
     } else if (this.playerChoice.losesTo.includes(this.opponentChoice.name)) {
       this.winner = this.opponentChoice.name;
       this.loser = this.playerChoice.name;
-      this.gameResult = "LOSE";
+      this.gameResult = GameResult.LOSE;
     } else {
-      this.gameResult = "DRAW";
+      this.gameResult = GameResult.DRAW;
     }
   }
 
   getOutputExpression() {
-    this.outputExpression = this.gameResult === "WIN" ? "You win! " :
-      this.gameResult === "LOSE" ? "You lose! " : "Draw! ";
+    this.outputExpression = 
+      this.gameResult === GameResult.WIN ? "You win! " :
+      this.gameResult === GameResult.LOSE ? "You lose! " : "Draw! ";
     if (this.winner !== null && this.loser !== null) {
       this.verb = this.verbLookup[this.winner][this.loser];
       this.outputExpression += this.capitalize(this.winner) + " " + this.verb + " " + this.loser + "!";

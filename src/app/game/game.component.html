@@ -1,7 +1,13 @@
-<div class="d-flex align-items-center justify-content-center">
-  <app-choice 
-    *ngFor="let gameOption of gameOptions" 
-    [gameOption]="gameOption" 
-    (playerChoice)="onSetSelection(gameOption)">
-  </app-choice>
+<div class="d-flex flex-column gap-5 align-items-center justify-content-center">
+  <div class="d-flex align-items-center justify-content-center">
+    <app-choice 
+      *ngFor="let gameOption of gameOptions" 
+      [playerSelected]="playerChoice"
+      [opponentSelected]="opponentChoice"
+      [gameResult]="gameResult"
+      [gameOption]="gameOption" 
+      (playerChoice)="onSetSelection(gameOption)">
+    </app-choice>
+  </div>
+  <div *ngIf="outputExpression !== 'undefined'">{{outputExpression}}</div>
 </div>
